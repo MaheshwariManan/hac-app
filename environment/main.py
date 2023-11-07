@@ -64,5 +64,8 @@ def logout():
     session.clear()
     return redirect(url_for('hac_login'))
 
+# if __name__ == '__main__':
+#     app.run(debug=True, port=9999)
+
 if __name__ == '__main__':
-    app.run(debug=True, port=9999)
+    app.run(debug=False, host='0.0.0.0')
