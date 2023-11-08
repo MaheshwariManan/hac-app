@@ -30,6 +30,8 @@ body{
     color: #66FcF1;
     border-radius: 10px;
     padding: 30px 40px;
+    border: 2px solid;
+
 }
 .wrapper h1{
     font-size: 36px;
@@ -63,10 +65,11 @@ body{
     text-align: right; /* Maintains right alignment */
 }
 
-.wrapper .btn{
+        .wrapper .btn{
             width: 100%;
             height: 45px;
             background-color: #66FcF1;
+            color: #1F2833;
             border: none;
             outline: none;
             border-radius: 45px;
@@ -74,6 +77,7 @@ body{
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
+            margin-top: 20px;
         }
 
         .wrapper span{
@@ -82,7 +86,7 @@ body{
             color: white;
             padding-top: 5px;
         }
-    
+
 
     </style>
 </head>
@@ -98,12 +102,14 @@ body{
                 </p>
             </div>
             {% endfor %}
-            <p>Weighted GPA<strong>{{ weighted_gpa }}</strong></p>
+            <hr>
+            <p class="weighted_gpa"> Weighted GPA<strong>{{ weighted_gpa }}</strong></p>
         {% else %}
             <p>No classes available for this student.</p>
         {% endif %}
         
         <form action="{{ url_for('logout') }}" method="post">
+            <hr>
             <button type="submit" class="btn" onclick="{{ url_for('hac_login') }}">Logout</button>
         </form>
         <span>By - Programmer Manan</span>
