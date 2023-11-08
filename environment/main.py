@@ -22,6 +22,7 @@ def calculate_weighted_gpa(class_names, class_grades):
             total_weighted_grade += (grade / 100) * 5.0
 
     weighted_gpa = total_weighted_grade / classes_num
+    weighted_gpa = round(weighted_gpa, 4)
     return weighted_gpa
 
 #Home Index page (default page)
@@ -64,8 +65,8 @@ def logout():
     session.clear()
     return redirect(url_for('hac_login'))
 
-# if __name__ == '__main__':
-#     app.run(debug=True, port=9999)
-
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, port=9999)
+
+# if __name__ == '__main__':
+#     app.run(debug=False, host='0.0.0.0')

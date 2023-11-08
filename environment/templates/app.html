@@ -35,18 +35,21 @@ body{
     font-size: 36px;
     text-align: center;
 }
-.wrapper p{
-    position: relative;
-    width: 100%;
-    height: 50px;
-    background-color: #262626;
-    background-color: #1F2833;
-    margin: 30px 0;
-    font-size: 15px;
+.wrapper p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: #262626;
+  background-color: #1F2833;
+  margin: 30px 0;
+  font-size: 15px;
 }
 
 .wrapper p strong {
-    width: 100%;
+    width: 70px;
     height: 45px;
     background-color: #66FcF1;
     color: #1F2833;
@@ -56,7 +59,8 @@ body{
     cursor: pointer;
     font-size: 12px;
     font-weight: 600;
-    padding: 7px;
+    padding: 15px 17px 17px 17px;
+    text-align: right; /* Maintains right alignment */
 }
 
 .wrapper .btn{
@@ -89,12 +93,12 @@ body{
             {% for class_info in data_classes %}
             <div>
                 <p>
-                    {{ class_info.class_name.split('-')[1:] | join('-') | striptags | trim }} - 
-                    <strong style="text-align: right;">{{ class_info.class_grade }}</strong>
+                    {{ class_info.class_name}}
+                    <strong>{{ class_info.class_grade }}</strong>
                 </p>
             </div>
             {% endfor %}
-            <p>Weighted GPA - <strong>{{ weighted_gpa }}</strong></p>
+            <p>Weighted GPA<strong>{{ weighted_gpa }}</strong></p>
         {% else %}
             <p>No classes available for this student.</p>
         {% endif %}

@@ -22,7 +22,14 @@ def get(username, password):
             course_code = course_info[0].strip()
             course_number = course_info[1].split()[0].strip()
 
+            if class_grade=="" or class_grade==" ":
+                class_grade=="0.00"
             # Append information to the list
+
+            class_name = class_name.replace(course_code, "")
+            class_name = class_name.replace(course_number, "")
+            class_name = class_name.replace("-", "")
+
             classes_info.append({
                 'class_name': class_name,
                 'course_code': f"{course_code} {course_number}",
