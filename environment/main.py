@@ -53,7 +53,7 @@ def app_page():
     password = session.get('hac_password')
 
     if not (username and password):
-        return redirect('hac_login')
+        return redirect('/')
     
     data_info = get_student_info.get(username, password)
     data_classes, weighted_gpa = get_student_classes.get(username, password)

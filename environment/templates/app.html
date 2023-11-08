@@ -81,12 +81,20 @@ body{
         }
 
         .wrapper span{
-            text-align: right;
+            text-align: center;
             font-size: 12px;
             color: white;
             padding-top: 5px;
+            justify-content: space-between;
+            padding-left: 40px;
+
         }
 
+        .wrapper a{
+            text-align: center;
+            color: white;
+            text-decoration: none;
+        }
 
     </style>
 </head>
@@ -112,7 +120,10 @@ body{
             <hr>
             <button type="submit" class="btn" onclick="{{ url_for('hac_login') }}">Logout</button>
         </form>
-        <span>By - Programmer Manan</span>
+        <span>
+            By - Programmer Manan - 
+            <a href="">Contact Me</a>
+        </span>
     </div>
 </body>
 </html>
