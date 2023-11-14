@@ -16,14 +16,31 @@ def get(username, password):
         for class_info in data_classes.get('currentClasses', []):
             class_name = class_info.get('name', 'N/A')
             class_grade = class_info.get('grade', 'N/A')
+            
+            assignments = class_info.get('assignments', [])
+            assignments_info = []
+
+            for assignment in assignments:
+                assignment_name = assignment.get('name', 'N/A')
+                assignment_score = assignment.get('score', 'N/A')
+
+                max_chars = 36  # You can adjust this value based on your preference
+                truncated_assignment_name = (
+                assignment_name[:max_chars] + '...' if len(assignment_name) > max_chars else assignment_name
+                )
+                
+                # Append assignment information to the list
+                assignments_info.append(
+                    truncated_assignment_name + " - " + assignment_score
+                )
 
             # Extract course code and number
             course_info = class_name.split('-')
             course_code = course_info[0].strip()
             course_number = course_info[1].split()[0].strip()
 
-            if class_grade=="" or class_grade==" ":
-                class_grade=="0.00"
+            if class_grade == "" or class_grade == " ":
+                class_grade = "0.00"
             # Append information to the list
 
             class_name = class_name.replace(course_code, "")
@@ -33,8 +50,10 @@ def get(username, password):
             classes_info.append({
                 'class_name': class_name,
                 'course_code': f"{course_code} {course_number}",
-                'class_grade': class_grade
+                'class_grade': class_grade,
+                'assignments': '<br>'.join(assignments_info)  # Exclude the first element (class name) when joining
             })
+
 
         # Calculate weighted GPA
         weighted_gpa = calculate_weighted_gpa(

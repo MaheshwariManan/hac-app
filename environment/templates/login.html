@@ -38,6 +38,11 @@
             font-size: 36px;
             text-align: center;
         }
+
+        .wrapper h6{
+            color: white;
+            text-align: center;
+        }
         .wrapper .input-box{
             position: relative;
             width: 100%;
@@ -145,6 +150,12 @@
     </div>
     <div class="wrapper">
         <form id="login-form" action="{{ url_for('hac_login') }}" method="post">
+            {% if message %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+{% endif %}
+            <h6>BETA</h6>
             <h1>HAC - Login</h1>
             <div class="input-box">
                 <input type="text" placeholder="HAC Username" name="username" required/>

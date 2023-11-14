@@ -37,6 +37,10 @@ body{
     font-size: 36px;
     text-align: center;
 }
+.wrapper h6{
+    color: white;
+    text-align: center;
+}
 .wrapper p {
   display: flex;
   justify-content: space-between;
@@ -96,18 +100,35 @@ body{
             text-decoration: none;
         }
 
+        .wrapper ul{
+            color: white;
+            font-size: 12px;
+            padding-left: 15px;
+        }
+
+
     </style>
 </head>
 <body>
     <div class="wrapper">
+        <h6>BETA</h6>
         <h1>Student Classes</h1>
         {% if data_classes %}
             {% for class_info in data_classes %}
             <div>
-                <p>
-                    {{ class_info.class_name}}
+                <!-- <p>
+                    {{ class_info.class_name }}
                     <strong>{{ class_info.class_grade }}</strong>
+                </p> -->
+                <p>
+                    {{ class_info.class_name }}
+                    <strong class="class-grade">
+                        {{ class_info.class_grade }}
+                    </strong>
                 </p>
+                <!-- <ul>
+                    <br>{{ class_info.assignments | safe }}<br>
+                </ul> -->
             </div>
             {% endfor %}
             <hr>
@@ -122,9 +143,28 @@ body{
         </form>
         <span>
             By - Programmer Manan - 
-            <a href="">Contact Me</a>
+            <a href="https://formsubmit.co/el/meriku" target="_blank">Contact Me</a>
         </span>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var gradeElements = document.querySelectorAll('.class-grade');
+    
+            gradeElements.forEach(function(element) {
+                var grade = parseInt(element.innerText);
+    
+                if (Number(grade) < 70) {
+                    element.style.backgroundColor = '#FF0000';
+                } else if (Number(grade) < 80) {
+                    element.style.backgroundColor = '#FFDB58'; /* Mustard color */
+                } else if (Number(grade) < 90) {
+                    element.style.backgroundColor = '#1e90ff';
+                } else {
+                    element.style.backgroundColor = '#1fcc44';
+                    // element.style.backgroundColor = '#FFDB58';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-

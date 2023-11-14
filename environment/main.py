@@ -1,4 +1,5 @@
 from flask import Flask, abort, render_template, request, session, redirect, url_for, jsonify
+import requests
 import get_student_info #Importing the student info file to get the info from the api
 import get_student_classes #Importing the student classes file to get the classes and grades from the api
 
@@ -7,22 +8,26 @@ app.secret_key = "your_secret_key"  # Change this to a secure secret key
 
 #Function to calculate GPA
 def calculate_weighted_gpa(class_names, class_grades):
-    total_weighted_grade = 0
-    classes_num = len(class_names)
+    try:
+        total_weighted_grade = 0
+        classes_num = len(class_names)
 
-    for i in range(classes_num):
-        grade = float(class_grades[i])  # Convert grade to float
-        class_name = class_names[i]
+        for i in range(classes_num):
+            grade = float(class_grades[i])  # Convert grade to float
+            class_name = class_names[i]
 
-        if "AP" in class_name:
-            total_weighted_grade += (grade / 100) * 6.0
-        elif "Adv" in class_name:
-            total_weighted_grade += (grade / 100) * 5.5
-        else:
-            total_weighted_grade += (grade / 100) * 5.0
+            if "AP" in class_name:
+                total_weighted_grade += (grade / 100) * 6.0
+            elif "Adv" in class_name:
+                total_weighted_grade += (grade / 100) * 5.5
+            else:
+                total_weighted_grade += (grade / 100) * 5.0
+        
+        weighted_gpa = total_weighted_grade / classes_num
 
-    weighted_gpa = total_weighted_grade / classes_num
-    weighted_gpa = round(weighted_gpa, 4)
+        weighted_gpa = round(weighted_gpa, 4)
+    except:
+        weighted_gpa = 0.00
     return weighted_gpa
 
 #Home Index page (default page)
@@ -47,6 +52,12 @@ def hac_login():
 
 #Fetching classes and student info from hac api and sending to app.html to display info to user
 #Hac API
+def convert_to_integer(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return 0  # Handle the case where conversion is not possible
+    
 @app.route('/app', methods=['GET'])
 def app_page():
     username = session.get('hac_username')
@@ -54,9 +65,14 @@ def app_page():
 
     if not (username and password):
         return redirect('/')
-    
+
+    result = get_student_classes.get(username, password)
+
     data_info = get_student_info.get(username, password)
-    data_classes, weighted_gpa = get_student_classes.get(username, password)
+    data_classes, weighted_gpa = result
+    
+    # for class_info in data_classes:
+    #     class_info['class_grade'] = convert_to_integer(class_info['class_grade'])
 
     return render_template('app.html', data_info=data_info, data_classes=data_classes, weighted_gpa=weighted_gpa)
 
@@ -65,8 +81,8 @@ def logout():
     session.clear()
     return redirect(url_for('hac_login'))
 
-# if __name__ == '__main__':
-#     app.run(debug=True, port=9999)
-
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, port=9999)
+
+# if __name__ == '__main__':
+#     app.run(debug=False, host='0.0.0.0')
