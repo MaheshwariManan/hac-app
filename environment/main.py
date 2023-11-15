@@ -81,6 +81,10 @@ def logout():
     session.clear()
     return redirect(url_for('hac_login'))
 
+@app.route('/beta')
+def beta_page():
+    return render_template('beta.html')
+
 # if __name__ == '__main__':
 #     app.run(debug=True, port=9999)
 

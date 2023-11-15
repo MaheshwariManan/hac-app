@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main App</title>
+    <title>Grades &#xb7; HAC App &#xb7; Programmer Manan</title>
+    <link rel="icon" type="image/x-icon" href="../static/Logo.png">
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
@@ -111,7 +112,7 @@ body{
 </head>
 <body>
     <div class="wrapper">
-        <h6>BETA</h6>
+        <h6><a href="{{ url_for('beta_page') }}">BETA VERSION</a></h6>
         <h1>Student Classes</h1>
         {% if data_classes %}
             {% for class_info in data_classes %}
